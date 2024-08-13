@@ -3,7 +3,7 @@
     readOnly: @entangle('readOnly').live,
     createQuote: @entangle('createQuote'),
 }" class="my-4 max-xs:mx-2 max-w-screen-2xl mx-auto">
-        <x-overlay target="store, update, destroy"/>
+        <x-overlay target="store, update, destroy, viewPdf"/>
 
         <div class="header-content relative my-8 max-xs:mt-4 rounded-lg border border-dashed border-customPrimary/50 p-4">
             <span class="absolute -top-4 left-3 px-2 py-1 text-md bg-customGray">Filtros</span>
@@ -132,7 +132,7 @@
             </div>
         @endif
 
-        @if ( $quotes->hasPages() )
+        @if ( count($quotes) > 0 )
             <div class="bg-white rounded-lg py-4 px-7 my-4">
                 {{ $quotes->links() }}
             </div>

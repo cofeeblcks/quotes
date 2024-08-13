@@ -8,14 +8,17 @@ use App\Actions\Quotes\QuoteFinder;
 use App\Actions\Quotes\QuotesList;
 use App\Actions\Quotes\UpdateQuote;
 use App\Enums\OutputList;
+use App\Traits\NotificationQuote;
 use App\Traits\WithRecordPerPage;
 use App\Traits\WithSelectOne;
 use App\Traits\WithToastNotifications;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class QuotesComponent extends Component
 {
-    use WithToastNotifications;
+    use WithPagination;
+    use WithToastNotifications, NotificationQuote;
     use WithRecordPerPage, WithSelectOne;
 
     public int $recordsPerPage = 10;
@@ -65,7 +68,7 @@ class QuotesComponent extends Component
     public function updated($field, $value): void
     {
         if (in_array($field, array_keys($this->queryString))) {
-            $this->resetPage('quotes_page');
+            $this->resetPage('quotes-component_page');
         }
     }
 
@@ -97,6 +100,7 @@ class QuotesComponent extends Component
             'quoteId',
             'inputDisabled',
             'readOnly',
+            'newCustomer',
             'quoteData',
             'quoteDetailsData',
             'customerData',
@@ -198,6 +202,8 @@ class QuotesComponent extends Component
             $this->showError('Error guardando datos', "Ha ocurrido un error guardando los datos del usuario.", 10000);
             return;
         }
+
+        $this->notificationEmailQuote($response['quote']);
 
         $this->showModalCreateQuote = !$this->showModalCreateQuote;
         $this->showSuccess('Datos guardados', $response['message'], 5000);

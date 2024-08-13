@@ -64,8 +64,7 @@ class Quote extends Model
      */
     public function nextConsecutive(): int
     {
-        $consecutive = $this->get('consecutive')
-        ->last();
+        $consecutive = $this->get('consecutive')->last();
         if( $consecutive ){
             return $consecutive->consecutive + 1;
         }
@@ -82,8 +81,9 @@ class Quote extends Model
     public function scopeSearch(Builder $builder, string $search = null)
     {
         if ($search) {
-            $search = '%' . $search . '%';
-            return $builder->where('description', 'like', $search);
+            $searchCustomer = '%' . $search . '%';
+            return $builder->whereRelation('customer', 'customers.name', 'like', $searchCustomer)
+                ->orWhere('consecutive', $search);
         }
         return $builder;
     }

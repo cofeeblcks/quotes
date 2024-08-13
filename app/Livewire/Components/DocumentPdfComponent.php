@@ -4,17 +4,14 @@ namespace App\Livewire\Components;
 
 use App\Actions\Quotes\Pdf\CreatePdf;
 use App\Actions\Quotes\QuoteFinder;
-use App\Mail\SendQuoteEmail;
-use App\Models\Company;
+use App\Traits\NotificationQuote;
 use App\Traits\WithToastNotifications;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class DocumentPdfComponent extends Component
 {
     use WithToastNotifications;
+    use NotificationQuote;
 
     public bool $showModalViewPdf = false;
     public int $quoteConsecutive;
@@ -46,36 +43,7 @@ class DocumentPdfComponent extends Component
     {
         $quote = (new QuoteFinder())->execute($this->quoteId);
 
-        $consecutive = Str::padLeft($quote->consecutive, 6, '0');
-        $subject = "Cotización Nº $consecutive - " . $quote->customer->name;
-
-        $company = Company::find(1)->first();
-
-        $dataEmail = [
-            'customer' => $quote->customer->name,
-            'company' => [
-                'name' => $company->name,
-                'phone' => $company->phone,
-                'email' => $company->email,
-            ]
-        ];
-
-        try {
-            Mail::to($quote->customer)
-            ->send(
-                new SendQuoteEmail(
-                    $subject,
-                    $dataEmail,
-                    [
-                        Attachment::fromPath(public_path($quote->document_path))
-                        ->as($quote->document_name . '.pdf')
-                        ->withMime('application/pdf')
-                    ]
-                )
-            );
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $this->notificationEmailQuote($quote);
 
         $this->showModalViewPdf = !$this->showModalViewPdf;
         $this->showSuccess('Cotización enviada', 'Se ha enviado la cotización exitosamente al cliente.', 5000);

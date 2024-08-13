@@ -5,6 +5,7 @@ namespace App\Actions\Quotes;
 use App\Actions\Customers\CreateCustomer;
 use App\Actions\Quotes\Details\CreateQuoteDetail;
 use App\Actions\Quotes\Pdf\CreatePdf;
+use App\Enums\StatusEnum;
 use App\Models\Quote;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,7 @@ final class CreateQuote
             }
             $data['quote']['consecutive'] = $quote->nextConsecutive();
             $data['quote']['userId'] = Auth::user()->id;
+            $data['quote']['statusId'] = StatusEnum::REGISTER;
 
             $this->fillData($quote, $data['quote']);
             $quote->save();

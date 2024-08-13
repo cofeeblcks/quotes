@@ -10,7 +10,7 @@
     >
         <div class="absolute inset-0 bg-customPrimary/50 backdrop-blur-sm">
             <div class="w-full h-full animate-pulse flex justify-center items-center flex-col">
-                <x-app.logo width="150" />
+                <x-app.logo width="150" :color="true" />
                 <p class="mt-4 text-white text-2xl font-semibold">Cargando...</p>
             </div>
         </div>

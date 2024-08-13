@@ -58,21 +58,21 @@
                     {{-- Content --}}
                     <div class="w-full px-4 grid grid-cols-3 max-xl:grid-cols-1 gap-4">
                         {{-- Datos --}}
-                        <div class="flex flex-col">
+                        <div class="flex flex-col max-md:col-span-3">
                             <p>Fecha de registro</p>
                             <div class="bg-customPrimary/20 ml-2 cursor-pointer py-1 px-2 rounded-lg text-customBlack my-2">
                                 {{ $quote->date_quote }}
                             </div>
                         </div>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col max-md:col-span-3">
                             <p>Cliente</p>
                             <div class="bg-customPrimary/20 ml-2 cursor-pointer py-1 px-2 rounded-lg text-customBlack my-2">
                                 {{ $quote->customer->name }} / {{ $quote->customer->email }} / {{ $quote->customer->phone }}
                             </div>
                         </div>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col max-md:col-span-3">
                             <p>Total</p>
                             <div class="bg-customPrimary/20 ml-2 cursor-pointer py-1 px-2 rounded-lg text-customBlack my-2">
                                 $ {{ number_format($quote->total, 0, ',', '.') }}
@@ -152,7 +152,7 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <div class="bg-customGray shadow-lg p-8 rounded-lg my-2">
+                    <div class="bg-customGray shadow-lg p-8 max-md:p-2 rounded-lg my-2">
                         <div class="grid grid-cols-2 gap-4">
                             <div class="flex flex-col col-span-2">
                                 <x-label class="" for="quoteData.description" hasError="quoteData.description" value="{{ __('Descripción') }}" />
@@ -160,7 +160,7 @@
                             </div>
 
                             @if( !$newCustomer )
-                                <div class="flex flex-col">
+                                <div class="flex flex-col max-md:col-span-2">
                                     <x-label class="after:content-['*'] after:ml-0.5" for="quoteData.customerId" hasError="quoteData.customerId" value="{{ __('Cliente') }}" />
                                     <div class="flex flex-col w-full">
                                         <x-select-one
@@ -178,7 +178,7 @@
                                 </div>
                             @endif
 
-                            <div class="flex flex-col">
+                            <div class="flex flex-col max-md:col-span-2">
                                 <x-label class="after:content-['*'] after:ml-0.5" for="quoteData.dateQuote" hasError="quoteData.dateQuote" value="{{ __('Fecha de cotización') }}" />
                                 <x-datepicker wire:model="quoteData.dateQuote" :disabled="$readOnly" />
                             </div>
@@ -187,22 +187,22 @@
                                 <div class="flex flex-col col-span-2 border border-customPrimary rounded-lg p-4 mt-4">
                                     <h3 class="w-full text-center font-semibold text-xl text-customBlack mb-4">Datos del cliente</h3>
                                     <div class="grid grid-cols-2 gap-4">
-                                        <div class="flex flex-col">
+                                        <div class="flex flex-col max-md:col-span-2">
                                             <x-label class="after:content-['*'] after:ml-0.5" for="customerData.name" hasError="customerData.name" value="{{ __('Nombre del cliente') }}"/>
 
                                             <x-input wire:model="customerData.name" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
-                                        <div class="flex flex-col">
+                                        <div class="flex flex-col max-md:col-span-2">
                                             <x-label class="after:content-['*'] after:ml-0.5" for="customerData.email" hasError="customerData.email" value="{{ __('Correo electrónico') }}"/>
 
                                             <x-input wire:model="customerData.email" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
-                                        <div class="flex flex-col">
+                                        <div class="flex flex-col max-md:col-span-2">
                                             <x-label class="" for="customerData.phone" hasError="customerData.phone" value="{{ __('Número telefónico') }}"/>
 
                                             <x-input wire:model="customerData.phone" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
-                                        <div class="flex flex-col">
+                                        <div class="flex flex-col max-md:col-span-2">
                                             <x-label class="" for="customerData.address" hasError="customerData.address" value="{{ __('Dirección') }}"/>
 
                                             <x-input wire:model="customerData.address" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
@@ -217,7 +217,7 @@
                             @endif
 
                             <div class="flex flex-col col-span-2">
-                                <div class="p-4">
+                                <div class="p-4 max-md:p-0">
                                     <x-label class="w-full text-center font-semibold text-xl text-customBlack mb-4" value="{{ __('Detalle de cotización') }}" />
                                     <div class="grid grid-cols-1 gap 4">
                                         <x-table :ths="['Descripción', 'Cantidad', 'Valor unitario', 'Borrar']">

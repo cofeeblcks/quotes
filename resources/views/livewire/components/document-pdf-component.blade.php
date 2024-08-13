@@ -1,5 +1,6 @@
 <div>
     @if ( $showModalViewPdf )
+        <x-overlay target="sendNotification"/>
         <x-dialog-modal wire:model="showModalViewPdf" maxWidth="max-w-6xl" :backdrop="true">
             <x-slot name="title">
                 <div class="flex items-center justify-between">

@@ -1,4 +1,4 @@
-<header class="sticky top-0 bg-colorAccentDark border-b border-colorSecondary z-30">
+<header class="sticky top-0 bg-customPrimaryDark border-b border-customGray z-30">
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 -mb-px">
 

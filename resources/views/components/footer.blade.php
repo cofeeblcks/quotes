@@ -1,14 +1,14 @@
 @php
     $nameApp = explode(' ', config('app.name'));
 @endphp
-<footer class="text-gray-700 bg-white body-font fixed w-full bottom-0" {!! $attributes ?? '' !!}>
+<footer class="text-gray-700 bg-white body-font w-full mt-8" {!! $attributes ?? '' !!}>
     <div class="flex flex-col items-center px-8 py-4 mx-auto sm:flex-row max-w-screen-2xl">
         <span class="font-light m-0">{{ $nameApp[0] }}</span>
         <span x-show="{{ isset($nameApp[1]) }}" class="font-semibold m-0">{{ isset($nameApp[1]) ? $nameApp[1] : '' }}</span>
 
         <p class="mt-4 text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l sm:border-gray-200 sm:mt-0">&copy; 2024 - Todos los derechos reservados</p>
 
-        <p class="mt-4 text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l sm:border-gray-200 sm:mt-0">Desarrollador por <a href="https://chivodev.com" target="_blank" class="text-colorGreen hover:underline">Hadik Chavez - CofeeBlcks</a></p>
+        <p class="mt-4 text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l sm:border-gray-200 sm:mt-0">Desarrollador por <a href="https://chivodev.com" target="_blank" class="text-customPrimary hover:underline">Hadik Chavez - CofeeBlcks</a></p>
 
         <span class="inline-flex justify-center mt-4 space-x-5 sm:ml-auto sm:mt-0 sm:justify-start">
             <a href="#" class="text-gray-400 hover:text-gray-500">

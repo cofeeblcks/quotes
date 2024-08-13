@@ -127,6 +127,30 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'QuoteError' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/QuoteError.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+        'QuoteDetailError' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/QuoteDetailError.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+        'CustomerError' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/CustomerError.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+        'PdfError' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/PdfError.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ]
     ],
 
 ];

@@ -16,5 +16,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/cotizaciones', QuotesComponent::class)->name('quotes');
+    Route::get('/Cotizaciones', QuotesComponent::class)->name('quotes');
 });

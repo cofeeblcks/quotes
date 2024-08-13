@@ -28,6 +28,11 @@ export default {
                 customPrimaryDark: "rgba(var(--custom-primary-dark), <alpha-value>)",
                 customGray: "rgba(var(--custom-gray), <alpha-value>)",
                 customGrayDark: "rgba(var(--custom-gray-dark), <alpha-value>)",
+                customBlack: "rgba(var(--custom-black), <alpha-value>)",
+
+                error: "rgba(var(--custom-error), <alpha-value>)",
+                success: "rgba(var(--custom-success), <alpha-value>)",
+                warning: "rgba(var(--custom-warning), <alpha-value>)",
             }
         },
     },

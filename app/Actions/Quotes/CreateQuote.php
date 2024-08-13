@@ -15,7 +15,6 @@ final class CreateQuote
 {
     public function execute(array $data): array
     {
-        dd($data);
         DB::beginTransaction();
         try {
             $quote = new Quote();
@@ -53,7 +52,7 @@ final class CreateQuote
             $quote->total = $total;
             $quote->save();
 
-            // (new CreatePdf())->execute($quote);
+            (new CreatePdf())->execute($quote);
 
             DB::commit();
             return [

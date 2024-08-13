@@ -1,5 +1,6 @@
 <div x-data="{
     inputDisabled: @entangle('inputDisabled').live,
+    readOnly: @entangle('readOnly').live,
     createQuote: @entangle('createQuote'),
 }" class="my-4 max-xs:mx-2 max-w-screen-2xl mx-auto">
         <x-overlay target="store, update, destroy"/>
@@ -67,7 +68,7 @@
                         <div class="flex flex-col">
                             <p>Cliente</p>
                             <div class="bg-customPrimary/20 ml-2 cursor-pointer py-1 px-2 rounded-lg text-customBlack my-2">
-                                {{ $quote->customer->name }}
+                                {{ $quote->customer->name }} / {{ $quote->customer->email }} / {{ $quote->customer->phone }}
                             </div>
                         </div>
 
@@ -171,7 +172,7 @@
                                                 'recordsPerPage' => 10,
                                                 'output' => 'paginate'
                                             ]"
-                                            :disabled="$inputDisabled"
+                                            :disabled="$readOnly"
                                         />
                                     </div>
                                 </div>
@@ -179,7 +180,7 @@
 
                             <div class="flex flex-col">
                                 <x-label class="after:content-['*'] after:ml-0.5" for="quoteData.dateQuote" hasError="quoteData.dateQuote" value="{{ __('Fecha de cotización') }}" />
-                                <x-datepicker wire:model="quoteData.dateQuote" :disabled="$inputDisabled" />
+                                <x-datepicker wire:model="quoteData.dateQuote" :disabled="$readOnly" />
                             </div>
 
                             @if( $newCustomer )
@@ -189,22 +190,22 @@
                                         <div class="flex flex-col">
                                             <x-label class="after:content-['*'] after:ml-0.5" for="customerData.name" hasError="customerData.name" value="{{ __('Nombre del cliente') }}"/>
 
-                                            <x-input wire:model="customerData.name" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-colorBlack/10 w-full" />
+                                            <x-input wire:model="customerData.name" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
                                         <div class="flex flex-col">
                                             <x-label class="after:content-['*'] after:ml-0.5" for="customerData.email" hasError="customerData.email" value="{{ __('Correo electrónico') }}"/>
 
-                                            <x-input wire:model="customerData.email" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-colorBlack/10 w-full" />
+                                            <x-input wire:model="customerData.email" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
                                         <div class="flex flex-col">
                                             <x-label class="" for="customerData.phone" hasError="customerData.phone" value="{{ __('Número telefónico') }}"/>
 
-                                            <x-input wire:model="customerData.phone" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-colorBlack/10 w-full" />
+                                            <x-input wire:model="customerData.phone" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
                                         <div class="flex flex-col">
                                             <x-label class="" for="customerData.address" hasError="customerData.address" value="{{ __('Dirección') }}"/>
 
-                                            <x-input wire:model="customerData.address" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-colorBlack/10 w-full" />
+                                            <x-input wire:model="customerData.address" x-bind:disabled="inputDisabled" type="text" class="bg-white disabled:bg-customBlack/10 w-full" />
                                         </div>
                                     </div>
                                     <div class="w-full flex justify-end">
@@ -224,21 +225,23 @@
                                                 @foreach ($quoteDetailsData as $index => $detail)
                                                     <tr>
                                                         <td class="w-full">
-                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.description" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-colorBlack/10 w-full" />
+                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.description" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-customBlack/10 w-full" />
                                                         </td>
                                                         <td class="w-full">
-                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.quantity" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-colorBlack/10 w-full" x-mask:dynamic="'9999999'" />
+                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.quantity" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-customBlack/10 w-full" x-mask:dynamic="'9999999'" />
                                                         </td>
                                                         <td class="w-full">
-                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.unitCost" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-colorBlack/10 w-full" x-mask:dynamic="$money($input, ',')" />
+                                                            <x-input wire:model="quoteDetailsData.{{ $index }}.unitCost" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-customBlack/10 w-full" x-mask:dynamic="$money($input, ',')" />
                                                         </td>
                                                         <td class="w-full">
-                                                            @if ( count($quoteDetailsData) > 1 )
-                                                                <div class="bg-error cursor-pointer text-white rounded-lg flex items-center justify-center py-2 mx-2" wire:click="removeRow({{ $index }})">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                                                    </svg>
-                                                                </div>
+                                                            @if ( !$inputDisabled )
+                                                                @if ( count($quoteDetailsData) > 1 )
+                                                                    <div class="bg-error cursor-pointer text-white rounded-lg flex items-center justify-center py-2 mx-2" wire:click="removeRow({{ $index }})">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                                        </svg>
+                                                                    </div>
+                                                                @endif
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -271,7 +274,7 @@
                         </div>
                         <div class="buttons-rigth">
                             <div x-show="createQuote">
-                                <x-button wire:loading.attr="disabled" wire:click="store" class="hover:bg-[#122041]">
+                                <x-button wire:loading.attr="disabled" wire:click="store">
                                     {{ __('Guardar') }}
                                     <div wire:loading wire:target="store">
                                         <x-spinner size="w-5 h-5" class="ml-1"/>
@@ -279,7 +282,7 @@
                                 </x-button>
                             </div>
                             <div x-show="!inputDisabled && !createQuote">
-                                <x-button wire:loading.attr="disabled" wire:click="update" class="hover:bg-[#122041]">
+                                <x-button wire:loading.attr="disabled" wire:click="update">
                                     {{ __('Guardar cambios') }}
                                     <div wire:loading wire:target="update">
                                         <x-spinner size="w-5 h-5" class="ml-1"/>

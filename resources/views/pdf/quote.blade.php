@@ -5,41 +5,64 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proyecto {{ $header['code'] }}</title>
+    <title>Cotización {{ $quote['consecutive'] }}</title>
     <style>
         @page {
+            margin: 0;
+            font-family: 'Nunito', Arial, Helvetica, sans-serif;
+        }
+
+        #wrapper{
             margin: 145px 40px;
-            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+        }
+
+        body{
+            background-color: #f4f4f4;
         }
 
         header {
             position: fixed;
-            height: 50px;
-            top: -120px;
+            top: 40px;
             left: 0;
             right: 0;
+            padding: 0 40px;
         }
 
         footer {
             position: fixed;
-            bottom: -10px;
+            bottom: 20px;
             left: 0;
             right: 0;
+            padding: 20px 40px 0 40px;
+            border-top: 2px solid #8c52ff;
         }
 
         .table{
-            border: 1px solid rgb(0, 0, 0);
-            padding: 8px;
+            border: none;
             margin: 3px 0;
             border-collapse: collapse;
         }
 
+        .table thead{
+            background-color: #8c52ff;
+            color: white;
+        }
+
+        .table thead tr th{
+            padding: 10px;
+        }
+
         .table tr td {
-            border-top: 1px solid rgb(0, 0, 0);
-            border-bottom: 1px solid rgb(0, 0, 0);
-            border-left: 1px solid rgb(0, 0, 0);
-            border-right: 1px solid rgb(0, 0, 0);
+            border: none;
             padding: 5px;
+        }
+
+        .table .tbody tr td{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #fff;
+            border-bottom: 1px solid #e4e4e4;
         }
 
         .w-full {
@@ -47,6 +70,7 @@
         }
 
         p { margin: 0; }
+
         .text-right{ text-align: right; }
         .text-center{ text-align: center; }
         .text-left{ text-align: left; }
@@ -54,165 +78,137 @@
         .separator {
             height: 1.5px;
             border: none;
-            background-color: #000;
+            background-color: #8c52ff;
+        }
+
+        .logo{
+            display: flex;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <table class="header w-full" style="color: #393D40;">
-            <tr>
-                <td class="logo-header">
-                    <img src="{{ public_path('unipaz.png') }}" width="100" />
-                </td>
-                <td style="font-weight: bold;text-align: center;">
-                    <p style="text-transform: uppercase; font-size: 14px;">{{ $header['schoolName'] }}</p>
-                    <p style="font-size: 14px;">{{ $header['titleModalityStage'] }}</p>
-                </td>
-            </tr>
-        </table>
-        <hr class="separator">
-    </header>
-
-    <div class="container" style="font-size: 15px;">
-        @if (count($students) == 1)
-            <p style="margin: 5px 0;">El estudiante</p>
-        @else
-            <p style="margin: 5px 0;">Los estudiantes</p>
-        @endif
-        @foreach ($students as $student)
-            <table class="w-full table">
-                <tr>
-                    <td class="text-left">
-                        <strong style="color: #393D40;">Nombres: </strong>{{ $student['firstName'] }}
-                    </td>
-                    <td class="text-left">
-                        <strong style="color: #393D40;">Apellidos: </strong>{{ $student['lastName'] }}
-                    </td>
-                    <td class="text-left">
-                        <strong style="color: #393D40;">CC: </strong>{{ $student['identification'] }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-left">
-                        <strong style="color: #393D40;">Teléfono: </strong>{{ $student['phone'] }}
-                    </td>
-                    <td class="text-left" style="border-left: 1px solid black; border-right: 0">
-                        <strong style="color: #393D40;">e-mail: </strong>{{ $student['email'] }}
-                    </td>
-                    <td class="text-left" style="border-bottom: 1px solid black; border-left: 0;"></td>
-                </tr>
-                <tr>
-                    <td class="text-left">
-                        <strong style="color: #393D40;">Programa: </strong>
-                    </td>
-                    <td class="text-left" style="border-left: 1px solid black; border-right: 0">
-                        {{ $student['academicProgram'] }}
-                    </td>
-                    <td class="text-left" style="border-bottom: 1px solid black; border-left: 0;"></td>
-                </tr>
-            </table>
-        @endforeach
-
-        <p style="margin: 5px 0;">Y el director de trabajo de grado (director propuesto):</p>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Director: </strong>{{ $project['director']['name'] }}
-                </td>
-            </tr>
-        </table>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Titulo preliminar: </strong>{{ $project['title'] }}
-                </td>
-            </tr>
-        </table>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Palabras clave: </strong>{{ $project['keywords'] }}
-                </td>
-            </tr>
-        </table>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Resumen: </strong>{{ $project['resumen'] }}
-                </td>
-            </tr>
-        </table>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Breve descripción del problema: </strong>{{ $project['descriptionProblem'] }}
-                </td>
-            </tr>
-        </table>
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Breve descripción de la justificación: </strong>{{ $project['justification'] }}
-                </td>
-            </tr>
-        </table>
-
-        @foreach ($project['aims'] as $index => $aimTypes)
-            @foreach ($aimTypes as $aimType => $aims)
-                <p style="margin: 5px 0;font-weight: 700;">{{ $aimType }}</p>
-                <ul>
-                    @foreach ($aims as $aim)
-                        <li>{{ $aim }}</li>
-                    @endforeach
-                </ul>
-            @endforeach
-        @endforeach
-
-        <table class="w-full table">
-            <tr>
-                <td class="text-left">
-                    <strong style="color: #393D40;">Bibliografía: </strong>{{ $project['bibliography'] }}
-                </td>
-            </tr>
-        </table>
-
         <table class="w-full">
             <tr>
-                @foreach ($students as $student)
-                    <td style="margin: 15px 0;">
-                        @if ( $student['signature'] )
-                            <img src="{{ public_path($student['signature']) }}" width="150" alt="{{ $student['firstName'] }} {{ $student['lastName'] }}" >
-                        @else
-                            <img src="" width="150" alt="{{ $student['firstName'] }} {{ $student['lastName'] }}" >
-                        @endif
-                        <p><strong style="color: #393D40;">Firma estudiante: </strong>{{ $student['firstName'] }} {{ $student['lastName'] }}</p>
-                        <p><strong style="color: #393D40;">CC: </strong>{{ $student['identification'] }}</p>
-                    </td>
-                @endforeach
-            </tr>
-        </table>
-
-        <table class="w-full" style="margin: 15px 0;">
-            <tr>
-                <td style="">
-                    @if ( $project['director']['signature'] )
-                        <img src="{{ public_path($project['director']['signature']) }}" width="150" alt="{{ $project['director']['name'] }}" >
-                    @else
-                        <img src="" width="150" alt="{{ $project['director']['name'] }}" >
-                    @endif
-                    <p><strong style="color: #393D40;">Firma director: </strong>{{ $project['director']['name'] }}</p>
-                    <p><strong style="color: #393D40;">CC: </strong>{{ $project['director']['identification'] }}</p>
+                <td class="text-left">
+                    <img src="{{ public_path('images/logoColor.png') }}" width="150" />
+                </td>
+                <td class="text-right">
+                    <img src="{{ public_path('images/logoText.png') }}" width="250" />
                 </td>
             </tr>
         </table>
+    </header>
+    <div id="wrapper">
+        <div style="font-size: 15px;">
+            <table class="w-full">
+                <tr>
+                    <td class="text-right">
+                        <span style="font-weight: bold;">Cotización</span> {{ $quote['consecutive'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        <span style="font-weight: bold;">Fecha</span> {{ $quote['dateQuote'] }}
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Información del cliente</h2>
+            <table class="w-full">
+                <tr>
+                    <td class="text-left">
+                        <span style="font-weight: bold;">Nombre</span> {{ $customer['name'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">
+                        <span style="font-weight: bold;">Teléfono</span> {{ $customer['phone'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">
+                        <span style="font-weight: bold;">Correo</span> {{ $customer['email'] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">
+                        <span style="font-weight: bold;">Dirección</span> {{ $customer['address'] }}
+                    </td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 15px; margin-bottom: 15px;">
+                {{ $quote['description'] }}
+            </p>
+
+            <table class="w-full table">
+                <thead>
+                    <tr>
+                        <th style="border-radius: 10px 0 0 0;">Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th style="border-radius: 0 10px 0 0;">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    @foreach ($quote['details'] as $detail)
+                        <tr>
+                            <td class="text-left" style="padding-left: 20px;">
+                                {{ $detail['description'] }}
+                            </td>
+                            <td class="text-center">
+                                {{ $detail['quantity'] }}
+                            </td>
+                            <td class="text-center">
+                                $ {{ number_format($detail['unitCost'], 0, ',', '.') }}
+                            </td>
+                            <td class="text-center">
+                                $ {{ number_format(($detail['quantity'] * $detail['unitCost']), 0, ',', '.') }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <hr class="separator">
+
+            <table class="w-full" style="margin-top: 40px;">
+                <tr>
+                    <td class="text-right">
+                        <span style="font-weight: bold;background-color: #8c52ff;color: white;border-radius: 15px;padding: 20px;font-size: 1rem;">
+                            Total $ {{ number_format($quote['total'], 0, ',', '.') }}
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class="w-full" style="margin-top: 80px;">
+            <tr>
+                <td class="text-center">
+                    <img src="{{ public_path($company['signature']) }}" width="150" alt="{{ $company['name'] }}" >
+                </td>
+            </tr>
+        </table>
+
+        <footer>
+            <p style="margin-bottom: 10px;font-weight: bold;">Contacto</p>
+            <table class="w-full">
+                <tr>
+                    <td class="text-center" style="border-right: 1px solid #8c52ff;">
+                        {{ $company['phone'] }}
+                    </td>
+                    <td class="text-center" style="border-right: 1px solid #8c52ff;">
+                        {{ $company['email'] }}
+                    </td>
+                    <td class="text-center">
+                        {{ $company['address'] }}
+                    </td>
+                </tr>
+            </table>
+        </footer>
     </div>
 </body>
 </html>

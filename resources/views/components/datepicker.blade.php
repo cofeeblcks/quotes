@@ -17,7 +17,7 @@
         this.datePickerDay = day;
         this.datePickerValue = this.datePickerFormatDate(selectedDate);
         this.datePickerIsSelectedDate(day);
-        this.model = datePickerFormatDateModel( selectedDate );
+        this.model = this.datePickerFormatDateModel( selectedDate );
     },
     datePickerPreviousMonth(){
         if (this.datePickerMonth == 0) {
@@ -109,7 +109,7 @@
         datePickerCalculateDays();
     " x-cloak>
     <div class="relative">
-        <input x-ref="datePickerInput" type="text" @click="datePickerOpen=!datePickerOpen" x-model="datePickerValue" x-on:keydown.escape="datePickerOpen=false" {{ $disabled ? 'disabled' : '' }} class="flex w-full focus:border-customPrimary rounded-md shadow-sm focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50 hover:border-customPrimary {{ $errors->has($attributes->wire('model')->value) ? 'border-error' : 'border-customGray' }}" placeholder="Select date" readonly />
+        <input x-ref="datePickerInput" type="text" @click="datePickerOpen=!datePickerOpen" x-model="datePickerValue" x-on:keydown.escape="datePickerOpen=false" {{ $disabled ? 'disabled' : '' }} class="flex w-full focus:border-customPrimary rounded-md shadow-sm focus:ring-0 disabled:cursor-not-allowed disabled:bg-customBlack/10 hover:border-customPrimary {{ $errors->has($attributes->wire('model')->value) ? 'border-error' : 'border-customGray' }}" placeholder="Select date" readonly />
         <div
             x-show="datePickerOpen"
             x-transition

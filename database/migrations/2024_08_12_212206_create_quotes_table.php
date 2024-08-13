@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('document_name')->nullable();
             $table->foreignId('customer_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('status_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -27,6 +27,7 @@ class QuotesComponent extends Component
     public bool $showModalCreateQuote = false;
     public bool $createQuote= true;
     public bool $inputDisabled = false;
+    public bool $readOnly = false;
 
     public int $quoteId;
     public int $quoteConsecutive;
@@ -95,6 +96,7 @@ class QuotesComponent extends Component
         $this->reset([
             'quoteId',
             'inputDisabled',
+            'readOnly',
             'quoteData',
             'quoteDetailsData',
             'customerData',
@@ -294,6 +296,7 @@ class QuotesComponent extends Component
 
         $this->createQuote = false;
         $this->inputDisabled = true;
+        $this->readOnly = true;
         $this->showModalCreateQuote = !$this->showModalCreateQuote;
     }
 
@@ -304,5 +307,11 @@ class QuotesComponent extends Component
         $this->quoteId = $quoteId;
         $this->quoteConsecutive = $quote->consecutive;
         $this->showModalDeleteQuote = true;
+    }
+
+    public function viewPdf(int $quoteId)
+    {
+        $this->quoteId = $quoteId;
+        $this->showModalViewPdf = !$this->showModalViewPdf;
     }
 }

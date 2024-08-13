@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quote_details', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->longText('description');
-            $table->integer('quantity');
-            $table->float('unit_cost');
-            $table->foreignId('quote_id')->constrained();
+            $table->string('name');
+            $table->string('color', 7);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('quote_details');
+        Schema::dropIfExists('statuses');
     }
 };

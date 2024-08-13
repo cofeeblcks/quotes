@@ -2,15 +2,19 @@
 
 namespace App\Actions\Quotes\Pdf;
 
+use App\Models\Company;
 use App\Models\Quote;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 final class CreatePdf
 {
     public function execute(Quote $quote): bool
     {
+        $company = Company::find(1)->first();
+
         $path = storage_path('app/public/documents/quotes/' . $quote->consecutive);
 
         if( !File::isDirectory($path) ){
@@ -21,16 +25,33 @@ final class CreatePdf
         try {
             $pdf = Pdf::loadView('pdf.quote', [
                 'customer' => [
-                    'code' => $quote->prefix.$quote->sufix,
-                    'schoolName' => $quote->academicSchool->name,
-                    'titleModalityStage' => 'PROPUESTA DE INVESTIGACIÓN TRABAJOS DE GRADO'
+                    'name' => $quote->customer->name,
+                    'phone' => $quote->customer->phone ?? '-',
+                    'email' => $quote->customer->email ?? '-',
+                    'address' => $quote->customer->address ?? '-',
                 ],
                 'quote' => [
-                    'title' => $quote->title,
-                    'details' => [],
+                    'consecutive' => Str::padLeft($quote->consecutive, 6, '0'),
+                    'description' => $quote->description,
+                    'dateQuote' => $quote->date_quote,
+                    'total' => $quote->total,
+                    'details' => $quote->quoteDetails->map(function($detail){
+                        return [
+                            'description' => $detail->description,
+                            'quantity' => $detail->quantity,
+                            'unitCost' => $detail->unit_cost,
+                        ];
+                    })->toArray(),
+                ],
+                'company' => [
+                    'name' => $company->name,
+                    'phone' => $company->phone,
+                    'email' => $company->email,
+                    'address' => $company->address,
+                    'signature' => $company->signature_path,
                 ]
             ])
-                ->setPaper('A4');
+            ->setPaper('A4');
 
             $pdf->save($path . '/' . $namePdf);
 

@@ -16,6 +16,19 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+                xs: '480px',
+                sm: '640px',
+                md: '768px',
+                lg: '1024px',
+                xl: '1280px',
+            },
+            colors: {
+                customPrimary: "rgba(var(--custom-primary), <alpha-value>)",
+                customPrimaryDark: "rgba(var(--custom-primary-dark), <alpha-value>)",
+                customGray: "rgba(var(--custom-gray), <alpha-value>)",
+                customGrayDark: "rgba(var(--custom-gray-dark), <alpha-value>)",
+            }
         },
     },
 

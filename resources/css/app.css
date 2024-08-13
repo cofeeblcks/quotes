@@ -1,7 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Brittany';
+    src: url('../fonts/Brittany.ttf');
+  }
+
 [x-cloak] {
     display: none;
+}
+
+:root {
+    --custom-primary: 140, 82, 255;
+    --custom-primary-darḱ: 93, 53, 171;
+    --custom-gray: 244, 244, 244;
+    --custom-gray-dark: 228, 228, 228;
+}
+
+.brittany {
+    font-family: "Brittany", sans-serif;
+}
+
+.nunito {
+    font-family: "Nunito", sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(var(--custom-gray));
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--custom-primary));
+    border-radius: 25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--custom-gray-dark), .8);
 }

@@ -1,7 +1,12 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <div class="flex flex-col justify-center">
+                <x-app.logo :color="true" width="300" />
+                <h1 class="brittany text-[5rem] text-customPrimary">
+                    {{ config('app.subname') }}
+                </h1>
+            </div>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">

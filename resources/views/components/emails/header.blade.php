@@ -3,6 +3,6 @@
         <img src="{{ url('public/images/logoColor.png') }}" width="150" alt="Logo Mavico" />
     </div>
     <div style="width: 50%;text-align: right">
-        <img src="{{ url('public/images/logoText.png') }}" width="250" alt="Mabel Villafañe" />
+        <img src="{{ url('public/images/logoText.png') }}" width="250" alt="{{ config('app.subname') }}" />
     </div>
 </div>

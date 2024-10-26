@@ -4,7 +4,7 @@
             <div class="flex flex-col justify-center">
                 <x-app.logo :color="true" width="300" />
                 <h1 class="brittany text-[5rem] text-customPrimary">
-                    Mabel Villafañe
+                    {{ config('app.subname') }}
                 </h1>
             </div>
         </x-slot>

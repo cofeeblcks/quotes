@@ -21,7 +21,7 @@ final class CreateCustomer
             DB::commit();
             return [
                 'success' => true,
-                'message' => 'Cotización creada exitosamente.',
+                'message' => 'Cliente creado exitosamente.',
                 'customer' => $customer
             ];
         } catch (\Exception $e) {
@@ -36,8 +36,11 @@ final class CreateCustomer
 
     private function fillData(Customer $customer, array $data): void
     {
+        $getFillables = $customer->getFillable();
         foreach ($data as $key => $value) {
-            $customer->{Str::snake($key)} = is_String($value) ? trim($value) : $value;
+            if( in_array(Str::snake($key), $getFillables) ){
+                $customer->{Str::snake($key)} = is_String($value) ? trim($value) : $value;
+            }
         }
     }
 }

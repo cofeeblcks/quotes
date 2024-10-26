@@ -22,6 +22,7 @@ export default {
                 md: '768px',
                 lg: '1024px',
                 xl: '1280px',
+                xxl: '1366px',
             },
             colors: {
                 customPrimary: "rgba(var(--custom-primary), <alpha-value>)",

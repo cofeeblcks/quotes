@@ -22,6 +22,12 @@
                         {{ __('Quotes') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('customers') }}" wire:navigate :active="request()->routeIs('customers')">
+                        {{ __('Customers') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -91,6 +97,10 @@
 
             <x-responsive-nav-link href="{{ route('quotes') }}" wire:navigate :active="request()->routeIs('quotes')">
                 {{ __('Quotes') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('customers') }}" wire:navigate :active="request()->routeIs('customers')">
+                {{ __('Customers') }}
             </x-responsive-nav-link>
         </div>
 

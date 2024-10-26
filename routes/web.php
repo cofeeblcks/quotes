@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\CustomersComponent;
 use App\Livewire\QuotesComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/Cotizaciones', QuotesComponent::class)->name('quotes');
+    Route::get('/Clientes', CustomersComponent::class)->name('customers');
 });

@@ -10,9 +10,9 @@ final class CustomerFinder
     /**
      * @throws CustomerNotFoundException
      */
-    public function execute(int $CustomerId)
+    public function execute(int $customerId)
     {
-        $Customer = Customer::find($CustomerId);
+        $Customer = Customer::find($customerId);
 
         if (is_null($Customer)) {
             throw new CustomerNotFoundException();

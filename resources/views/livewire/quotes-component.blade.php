@@ -132,7 +132,7 @@
             </div>
         @endif
 
-        @if ( count($quotes) > 0 )
+        @if ( $quotes->hasPages() )
             <div class="bg-white rounded-lg py-4 px-7 my-4">
                 {{ $quotes->links() }}
             </div>

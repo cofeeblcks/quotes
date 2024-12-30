@@ -224,7 +224,12 @@ class QuotesComponent extends Component
 
         $response = (new UpdateQuote())->execute(
             $this->quoteId,
-            $this->quoteData
+            array_merge(
+                [
+                    'quote' => $this->quoteData,
+                    'details' => $this->quoteDetailsData,
+                ]
+            )
         );
 
 		if (!$response['success']) {
@@ -284,6 +289,7 @@ class QuotesComponent extends Component
 
         $this->quoteDetailsData = $quote->quoteDetails->map(function($detail){
             return [
+                'id' => $detail->id,
                 'description' => $detail->description,
                 'quantity' => $detail->quantity,
                 'unitCost' => $detail->unit_cost,

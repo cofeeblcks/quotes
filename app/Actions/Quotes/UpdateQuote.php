@@ -2,6 +2,7 @@
 
 namespace App\Actions\Quotes;
 
+use App\Actions\Quotes\Details\CreateQuoteDetail;
 use App\Models\Quote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -9,13 +10,32 @@ use Illuminate\Support\Str;
 
 final class UpdateQuote
 {
-    public function execute(int $quoteId, array $dataBasic, array $dataInformations = [], array $dataAims = []): array
+    public function execute(int $quoteId, array $data): array
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             $quote = (new QuoteFinder())->execute($quoteId);
 
-            $this->fillData($quote, $dataBasic);
+            $this->fillData($quote, $data['quote']);
+            $quote->save();
+
+            $total = 0;
+            foreach ($data['details'] as $detail) {
+                $detail['unitCost'] = Str::replace('.', '', $detail['unitCost']);
+
+                $subTotal = $detail['quantity'] * $detail['unitCost'];
+                $total += $subTotal;
+
+                $quote->quoteDetails()->where('id', $detail['id'])->update(
+                    [
+                        'description' => $detail['description'],
+                        'quantity' => $detail['quantity'],
+                        'unit_cost' => $detail['unitCost'],
+                    ]
+                );
+            }
+
+            $quote->total = $total;
             $quote->save();
 
             DB::commit();

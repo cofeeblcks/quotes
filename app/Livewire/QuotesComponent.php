@@ -232,18 +232,10 @@ class QuotesComponent extends Component
             exit;
         }
 
-        $quote = $response['quote'];
-
-        $responseNotification = $this->notificationUpdate($quote, 'Propuestas');
-
-        if (!$responseNotification) {
-            $this->showError('Error notificación', "Ha ocurrido un error enviando la notificación via correo electrónico.", 10000);
-        }else{
-            $this->showSuccess('Proyecto notificado', 'Se ha enviado la notificación del proyecto a los usuarios.', 5000);
-        }
+        $this->notificationEmailQuote($response['quote']);
 
         $this->showModalCreateQuote = !$this->showModalCreateQuote;
-        $this->showSuccess('Datos guardados', $response['message'], 5000);
+        $this->showSuccess('Datos actualizados', $response['message'], 5000);
     }
 
     /**

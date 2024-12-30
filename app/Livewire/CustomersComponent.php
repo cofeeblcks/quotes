@@ -94,7 +94,7 @@ class CustomersComponent extends Component
     {
         $this->validate([
             'customerData.name' => ['required', 'string'],
-            'customerData.email' => ['required', 'email', $this->createCustomer ? 'unique:customers,email' : 'exists:customers,email'],
+            'customerData.email' => ['required', 'email', 'unique:customers,email'],
         ]);
 
         $this->resetErrorBag();

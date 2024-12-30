@@ -34,7 +34,7 @@ final class CreatePdf
                     'consecutive' => Str::padLeft($quote->consecutive, 6, '0'),
                     'description' => $quote->description,
                     'dateQuote' => $quote->date_quote,
-                    'total' => $quote->total,
+                    'total' => $quote->with_total ? $quote->total : null,
                     'details' => $quote->quoteDetails->map(function($detail){
                         return [
                             'description' => $detail->description,

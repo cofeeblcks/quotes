@@ -174,15 +174,17 @@
 
             <hr class="separator">
 
-            <table class="w-full" style="margin-top: 40px;">
-                <tr>
-                    <td class="text-right">
-                        <span style="font-weight: bold;background-color: #8c52ff;color: white;border-radius: 15px;padding: 20px;font-size: 1rem;">
-                            Total $ {{ number_format($quote['total'], 0, ',', '.') }}
-                        </span>
-                    </td>
-                </tr>
-            </table>
+            @if( $quote['total'] > 0 )
+                <table class="w-full" style="margin-top: 40px;">
+                    <tr>
+                        <td class="text-right">
+                            <span style="font-weight: bold;background-color: #8c52ff;color: white;border-radius: 15px;padding: 20px;font-size: 1rem;">
+                                Total $ {{ number_format($quote['total'], 0, ',', '.') }}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            @endif
         </div>
 
         <table class="w-full" style="margin-top: 80px;">

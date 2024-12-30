@@ -51,7 +51,7 @@ final class CreateQuote
                 (new CreateQuoteDetail)->execute($detail);
             }
 
-            $quote->total = $total;
+            $quote->total = $quote->with_total ? $total : 0;
             $quote->save();
 
             (new CreatePdf())->execute($quote);
@@ -74,8 +74,11 @@ final class CreateQuote
 
     private function fillData(Quote $quote, array $data): void
     {
+        $getFillables = $quote->getFillable();
         foreach ($data as $key => $value) {
-            $quote->{Str::snake($key)} = is_String($value) ? trim($value) : $value;
+            if( in_array(Str::snake($key), $getFillables) ){
+                $quote->{Str::snake($key)} = is_String($value) ? trim($value) : $value;
+            }
         }
     }
 }

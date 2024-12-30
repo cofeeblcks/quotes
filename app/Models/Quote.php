@@ -19,13 +19,15 @@ class Quote extends Model
         'description',
         'date_quote',
         'total',
+        'with_total',
         'consecutive',
         'customer_id',
         'user_id'
     ];
 
     protected $casts = [
-        'created_at' => 'date'
+        'created_at' => 'date',
+        'with_total' => 'boolean',
     ];
 
     private $monthSpanish = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");

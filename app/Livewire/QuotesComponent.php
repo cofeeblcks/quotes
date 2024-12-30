@@ -41,6 +41,7 @@ class QuotesComponent extends Component
         'description' => null,
         'dateQuote' => null,
         'customerId' => null,
+        'withTotal' => false,
     ];
 
     public array $quoteDetailsData = [
@@ -129,6 +130,7 @@ class QuotesComponent extends Component
             'quoteData.description' => 'descripción',
             'quoteData.dateQuote' => 'fecha de cotización',
             'quoteData.customerId' => 'cliente',
+            'quoteData.withTotal' => 'totalizado',
             'quoteDetailsData.*' => 'detalle de cotizacion',
             'customerData.name' => 'nombre del cliente',
             'customerData.email' => 'correo electrónico'
@@ -141,6 +143,7 @@ class QuotesComponent extends Component
             'quoteData.description' => ['nullable', 'string'],
             'quoteData.dateQuote' => ['required', 'date'],
             'quoteData.customerId' => $this->newCustomer ? ['required', 'string'] : ['required', 'numeric', 'exists:customers,id'],
+            'quoteData.withTotal' => ['required', 'boolean'],
             'quoteDetailsData' => ['required', 'array', 'min:1'],
             'quoteDetailsData.*.description' => ['required', 'string'],
             'quoteDetailsData.*.quantity' => ['required', 'numeric'],
@@ -285,6 +288,7 @@ class QuotesComponent extends Component
             'description' => $quote->description,
             'dateQuote' => $quote->date_quote,
             'customerId' => $quote->customer_id,
+            'withTotal' => $quote->with_total,
         ];
 
         $this->quoteDetailsData = $quote->quoteDetails->map(function($detail){

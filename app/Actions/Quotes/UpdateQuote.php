@@ -35,7 +35,7 @@ final class UpdateQuote
                 );
             }
 
-            $quote->total = $total;
+            $quote->total = $quote->with_total ? $total : 0;
             $quote->save();
 
             DB::commit();

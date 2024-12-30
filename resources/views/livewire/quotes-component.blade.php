@@ -153,8 +153,8 @@
 
                 <x-slot name="content">
                     <div class="bg-customGray shadow-lg p-8 max-md:p-2 rounded-lg my-2">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="flex flex-col col-span-2">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="flex flex-col col-span-3">
                                 <x-label class="" for="quoteData.description" hasError="quoteData.description" value="{{ __('Descripción') }}" />
                                 <x-textarea wire:model="quoteData.description" x-bind:disabled="inputDisabled" class="bg-white disabled:bg-customBlack/10" name="quoteData.description" id="quoteData.description"/>
                             </div>
@@ -183,8 +183,13 @@
                                 <x-datepicker wire:model="quoteData.dateQuote" :disabled="$readOnly" />
                             </div>
 
+                            <div class="flex flex-col max-md:col-span-2">
+                                <x-label class="after:content-['*'] after:ml-0.5" for="quoteData.withTotal" hasError="quoteData.withTotal" value="{{ __('Totalizar?') }}" />
+                                <x-switch wire:model="quoteData.withTotal" :disabled="$inputDisabled" class="disabled:bg-black/10" id="quoteData.withTotal"/>
+                            </div>
+
                             @if( $newCustomer )
-                                <div class="flex flex-col col-span-2 border border-customPrimary rounded-lg p-4 mt-4">
+                                <div class="flex flex-col col-span-3 border border-customPrimary rounded-lg p-4 mt-4">
                                     <h3 class="w-full text-center font-semibold text-xl text-customBlack mb-4">Datos del cliente</h3>
                                     <div class="grid grid-cols-2 gap-4">
                                         <div class="flex flex-col max-md:col-span-2">
@@ -216,7 +221,7 @@
                                 </div>
                             @endif
 
-                            <div class="flex flex-col col-span-2">
+                            <div class="flex flex-col col-span-3">
                                 <div class="p-4 max-md:p-0">
                                     <x-label class="w-full text-center font-semibold text-xl text-customBlack mb-4" value="{{ __('Detalle de cotización') }}" />
                                     <div class="grid grid-cols-1 gap 4">

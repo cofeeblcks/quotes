@@ -203,7 +203,7 @@ class QuotesComponent extends Component
             return;
         }
 
-        $this->notificationEmailQuote($response['quote']);
+        // $this->notificationEmailQuote($response['quote']);
 
         $this->showModalCreateQuote = !$this->showModalCreateQuote;
         $this->showSuccess('Datos guardados', $response['message'], 5000);
@@ -232,7 +232,7 @@ class QuotesComponent extends Component
             exit;
         }
 
-        $this->notificationEmailQuote($response['quote']);
+        // $this->notificationEmailQuote($response['quote']);
 
         $this->showModalCreateQuote = !$this->showModalCreateQuote;
         $this->showSuccess('Datos actualizados', $response['message'], 5000);
